@@ -18,5 +18,3 @@ firebase.initializeApp(firebaseConfig);
 
 export const auths = firebase.auth()
 export const database = firebase.database()
-
-// Tentar arrumar isso aqui em ciman
