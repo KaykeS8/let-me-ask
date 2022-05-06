@@ -8,6 +8,7 @@ const App = () => {
       <Button nome="segundo"/>
       <Button nome="React é lindo"/>
       <Button />
+      <Button />
     </div>
   )
 }
