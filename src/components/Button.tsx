@@ -1,12 +1,10 @@
-import React from "react"
+import {ButtonHTMLAttributes} from 'react'
+import '../styles/button.scss';
 
-interface IButtonProps {
-    nome?:string
-}
+type buttoPropsTypes = ButtonHTMLAttributes<HTMLButtonElement>
 
-export const Button = ({nome}: IButtonProps) => {
-    const [count, setCount] = React.useState(0)
+export const Button = (props: buttoPropsTypes) => {
     return (
-     <button onClick={() => setCount(count + 1)}>{nome  || 'OK'}</button>
+     <button className="button" {...props}/>
     )
 }
