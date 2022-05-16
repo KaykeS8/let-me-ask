@@ -52,7 +52,7 @@ export const Room = () => {
     if (likeId) {
       await database.ref(`rooms/${roomId}/questions/${questoionId}/likes/${likeId}`).remove()
     } else {
-      const newLike = await database.ref(`rooms/${roomId}/questions/${questoionId}/likes`).push({
+      await database.ref(`rooms/${roomId}/questions/${questoionId}/likes`).push({
         authorId: user?.id
       })
     }
