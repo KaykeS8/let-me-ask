@@ -1,12 +1,16 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import LogoImg from '../assets/images/logo.svg';
 import { Button } from '../components/Button';
 import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
 import { useAuth } from '../hooks/useAuth';
 import { useRoom } from '../hooks/useRoom';
+import deleteImg from '../assets/images/delete.svg';
 import '../styles/room.scss'
+import { database } from '../services/firebase';
+import { ModalAdmin } from '../components/ModalAdmin';
+import deleteRoom from '../assets/images/DeleteRoom.png';
+import { useState } from 'react';
 
 
 type RoomParams = {
@@ -14,11 +18,39 @@ type RoomParams = {
 }
 
 export const AdminRoom = () => {
-  // const { user } = useAuth();
+  const { user } = useAuth();
   const params = useParams<RoomParams>();
   const roomId = params.id;
+  const history = useNavigate()
+
+  const [modal, setModal] = useState(false)
 
   const { questions, title } = useRoom(roomId)
+
+  const handleDeleteQuestion = async (questionId: string) => {
+    if (window.confirm('Tem certeza que você deseja excluir esta pergunta?')) {
+      await database.ref(`rooms/${roomId}/questions/${questionId}`).remove()
+    }
+  }
+
+  const handleEndRoom = async () => {
+    setModal(true)
+    if (window.confirm('Tem certeza que você deseja encerrar esta sala?')) {
+      await database.ref(`rooms/${roomId}`).update({
+        endeAt: new Date(),
+      })
+      history("/")
+    } else {
+      return
+    }
+  }
+
+  const contentModalRoom = {
+    title: 'Encerrar sala',
+    content: 'Tem certeza que você deseja encerrar esta sala?',
+    image: deleteRoom,
+    buttonText: 'Sim, encerrar'
+  }
 
 
   return (
@@ -28,7 +60,7 @@ export const AdminRoom = () => {
           <img src={LogoImg} alt="Logo da letmeask" />
           <div>
             <RoomCode code={roomId as string} />
-            <Button isOutlined>Encerra sala</Button>
+            <Button isOutlined onClick={handleEndRoom}>Encerra sala</Button>
           </div>
         </div >
       </header>
@@ -39,27 +71,6 @@ export const AdminRoom = () => {
           {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
         </div>
 
-        {/* <form onSubmit={handleSendQuestion}>
-          <textarea
-            placeholder='O que você que perguntar?'
-            onChange={({ target }) => setNewQuestions(target.value)}
-            value={newQuestions}
-          />
-
-          <div className="form-footer">
-            {user ? (
-              <div className='user-info'>
-                <img src={user.avatar} alt={user.name} />
-                <span>{user.name}</span>
-              </div>
-            ) : (
-              <span>Para enviar uma pergunta <button>Faça seu login</button>.</span>
-
-            )}
-            <Button type='submit' disabled={!user}>Enviar pergunta</Button>
-          </div>
-        </form> */}
-
         <div className="question-list">
           {questions.map((question) => {
             return (
@@ -67,11 +78,19 @@ export const AdminRoom = () => {
                 key={question.id}
                 content={question.content}
                 author={question.author}
-              />
+              >
+                <button
+                  type='button'
+                  onClick={() => handleDeleteQuestion(question.id)}
+                >
+                  <img src={deleteImg} alt="Imagem para deletar pergunta" />
+                </button>
+              </Question>
             )
           })}
         </div>
-      </main>
-    </div>
+        <ModalAdmin content={contentModalRoom.content} image={contentModalRoom.image} title={contentModalRoom.title} buttonText={contentModalRoom.buttonText} state={modal}/>
+      </main >
+    </div >
   )
 }
