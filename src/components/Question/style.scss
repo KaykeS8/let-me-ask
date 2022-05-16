@@ -4,8 +4,23 @@
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
   padding: 2.4rem;
 
-  & + .question {
+  &+.question {
     margin-top: .8rem;
+  }
+
+
+  &.highLighted {
+    background-color: #f4f0ff;
+    border: .1rem solid #835afd;
+
+    footer .user-info span {
+      color: #29292e;
+    }
+  }
+
+  &.answerd {
+    background-color: #DBDCDD;
+    border: none;
   }
 
   p {
@@ -21,19 +36,24 @@
     .user-info {
       display: flex;
       align-items: center;
-  
+
       img {
         width: 3.2rem;
         height: 3.2rem;
         border-radius: 50%;
       }
-  
+
       span {
         margin-left: .8rem;
         color: #29292e;
         font-weight: 500;
         font-size: 1.4rem;
       }
+    }
+
+    >div {
+      display: flex;
+      gap: 1rem;
     }
 
     button {
