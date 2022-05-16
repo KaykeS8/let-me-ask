@@ -13,12 +13,12 @@ const App = () => {
   return (
     <BrowserRouter>
       <AuthContextProvider>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/rooms/new" element={<NewRoomm />} />
-          <Route path="/rooms/:id" element={<Room />} />
-          <Route path="/admin/rooms/:id" element={<AdminRoom />} />
-        </Routes>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/rooms/new" element={<NewRoomm />} />
+            <Route path="/rooms/:id" element={<Room />} />
+            <Route path="/admin/rooms/:id" element={<AdminRoom />} />
+          </Routes>
       </AuthContextProvider>
     </BrowserRouter>
   )
