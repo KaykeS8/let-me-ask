@@ -6,14 +6,17 @@ type QuestionProps = {
     name: string;
     avatar: string;
   }
-  children?: ReactNode
+  children?: ReactNode;
+  isAnswerd?: boolean;
+  isHighLighted?: boolean;
 }
 
 
-export const Question = ({ content, author, children }: QuestionProps) => {
+export const Question = ({ content, author, children, isAnswerd = false, isHighLighted = false }: QuestionProps) => {
   const { name, avatar } = author
   return (
-    <div className="question">
+    <div
+     className={`question ${isAnswerd ? 'answerd' : ''} ${isHighLighted && !isAnswerd ? 'highLighted' : ''} `}>
       <p>{content}</p>
       <footer>
         <div className="user-info">
