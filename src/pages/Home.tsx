@@ -9,6 +9,7 @@ import { Button } from '../components/Button';
 import '../styles/auth.scss'
 import { FormEvent, useState } from 'react';
 import { database } from '../services/firebase';
+import { Widget } from '../components/WidgetForm/Widget';
 
 
 export const Home = () => {
@@ -26,18 +27,18 @@ export const Home = () => {
 
   const handleJoinRoom = async (event: FormEvent) => {
     event.preventDefault();
-    if(roomCode.trim() === '') {
+    if (roomCode.trim() === '') {
       return
     }
 
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
-    if(!roomRef.exists()) {
+    if (!roomRef.exists()) {
       alert('Room does not exists')
       return
     }
 
-    if(roomRef.val().endeAt) {
+    if (roomRef.val().endeAt) {
       alert("Room already closed!")
       return
     }
@@ -66,12 +67,13 @@ export const Home = () => {
             <input
               type="text"
               placeholder='Digite o código da sala'
-              onChange={({target}) => setRoomCode(target.value)}
+              onChange={({ target }) => setRoomCode(target.value)}
               value={roomCode}
             />
             <Button type='submit'>Entrar na sala</Button>
           </form>
         </div>
+        <Widget />
       </main>
     </div>
   )
