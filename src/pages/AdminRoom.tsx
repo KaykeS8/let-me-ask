@@ -14,6 +14,7 @@ import checkImg from '../assets/images/check.svg';
 import answerImg from '../assets/images/answer.svg';
 import { useState } from 'react';
 import Modal from 'react-modal';
+import { Widget } from '../components/Widget';
 
 const styleModal = {
   overlay: {
@@ -160,6 +161,7 @@ export const AdminRoom = () => {
             </div>
           </div>
         </Modal>}
+        <Widget />
       </main >
     </div >
   )
