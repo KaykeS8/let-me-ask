@@ -9,7 +9,7 @@ import { Button } from '../components/Button';
 import '../styles/auth.scss'
 import { FormEvent, useState } from 'react';
 import { database } from '../services/firebase';
-import { Widget } from '../components/WidgetForm/Widget';
+import { Widget } from '../components/Widget';
 
 
 export const Home = () => {
