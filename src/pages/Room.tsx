@@ -4,6 +4,7 @@ import LogoImg from '../assets/images/logo.svg';
 import { Button } from '../components/Button';
 import { Question } from '../components/Question';
 import { RoomCode } from '../components/RoomCode';
+import { Widget } from '../components/Widget';
 import { useAuth } from '../hooks/useAuth';
 import { useRoom } from '../hooks/useRoom';
 import { database } from '../services/firebase';
@@ -122,6 +123,7 @@ export const Room = () => {
             )
           })}
         </div>
+        <Widget />
       </main>
     </div>
   )
